@@ -9,7 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Irregular Verb V3 Quiz
     </title>
-    <script src="irregular_verbs_v3_questions.js"></script>
+    <script src="irregular_verbs_v3_questions.js"></script> 
+	<!-- <script src="irregular_verbs_v2_questions.js"></script> -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -74,8 +75,8 @@
             for (let i=0;i<totalQuestions;i++){
 
                 //write the quesiton
-				document.getElementById("quizcontainer").innerHTML=`<p> Chose the v3 (past participle) form of the given verb.</p>`;
-                document.getElementById("quizcontainer").innerHTML+=`<p> ${questionNumber}) ${questions[counter].question} </p>`;
+				document.getElementById("quizcontainer").innerHTML=`<p> ${questionNumber})  Chose the v3 (past participle) form of the given verb.</p>`;
+                document.getElementById("quizcontainer").innerHTML+=`<p> ${questions[counter].question} </p>`;
 
                 //create random choice order
                 let choiceArray=[1,2,3,4,5];
@@ -114,10 +115,10 @@
                         {
                             score=score+1;
                             console.log(questionNumber);
-                            message=`<p style="font-color:green;">Great! Your answer was correct. The v3(past participle) form of the verb ${questions[counter].question} is ${questions[counter].answer}</p>`;   
+                            message=`<p style="font-color:green;">Great! Your answer was correct. The v3(past participle) form of the verb ${questions[counter].question} is ${questions[counter].answer}</p>`;  
                         }
                     else{
-                        message=`<p>Oops! Your answer was not correct. The v3(past participle) form of the verb ${questions[counter].question} is ${questions[counter].answer}</p>`;
+                        message=`<p>Oops! Your answer was not correct. The v3(past participle) form of the verb ${questions[counter].question} is ${questions[counter].answer}</p>`;  
                     }
                 }
                 else{
