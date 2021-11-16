@@ -20,49 +20,40 @@
     <div id="header">
         <h3>Irregular Verb V3 Quiz</h3>
     </div>
-    <div id="progress" style="text-align:left;">
-
     </div>
-    <div id="score" style="text-align:right;">
+	<div id="instructions"> </div>
+	
+    <div id="time"> </div>
+	
+	<div id="remaining_time" style="text-align:right;">  </div>
 
-    </div>
+    <div id="progress" style="text-align:left;"> </div>
+	
+    <div id="score" style="text-align:right;"> </div>
 
-    <div id="feedback">
+    <div id="feedback"> </div>
+	
+   <div id="quizcontainer">  </div> 
 
-    
-
-    </div>
-
-   <div id="quizcontainer">
-       <p> Welcome to the Irregular Verbs Quiz. Select the v3 (past participle) form of the given verbs. You can take this quiz multiple times.</p>
-       <p><button onclick="quizGenerator()"><p>Begin the Quiz</p></button></p>
-       
-
-   </div> 
-
-    </div>
-
-    <div id="summary" style="background-color:orange;">
-
-    <div id="restart">
-
-    </div>
-
+   <div id="summary" style="background-color:orange;"> </div>
+   
+   <div id="restart"> </div>
 
    <script>
-
-       let quizTime=new Date();
-       document.getElementById("time").innerHTML=`<p> Quiz Date:  ${quizTime}</p>`;
+		
+       document.getElementById("quizcontainer").innerHTML=`<p> Welcome to the Phrasal Verbs quiz. You will be asked 10 questions in this quiz. You can take this quiz multiple times.</p> <p><button onclick="quizGenerator()"><p>Begin the Quiz</p></button></p>`;
 	   
+	   const quizTime1=new Date();
+	   const startTime=quizTime1.getMonth()+1 +"/"+quizTime1.getDate()+"/"+quizTime1.getFullYear()+" at "+quizTime1.getHours()+":"+quizTime1.getMinutes()+":"+quizTime1.getSeconds();
+       
+	   
+	   //Set Quiz time
+	   let quizTime=1;
 
         //Initial score
-
         let score=0;
         let percentage=0;
         let questionNumber=1;
-        //let choiceArray=[1,2,3,4,5];
-
-        
         maxQuestions=questions.length-1;
         minQuestions=0;
         counter=Math.floor(Math.random()*(maxQuestions-minQuestions)+minQuestions);
@@ -73,88 +64,116 @@
         
         
        //Quiz generator function
-       function quizGenerator(){
-           //document.getElementById("score").innerHTML=``;
-	    document.getElementById("feedback").innerHTML=``;
-	       
-	   //create random choice order
-           let choiceOrder=[1,2,3,4,5];
-                let max=questions[counter].choices.length-1;
-                min=0;
-                for (i=max;i>0;i--){            
-                    const j=Math.floor(Math.random() * (i + 1));
-                    const temp=choiceOrder[i];
-                    choiceOrder[i]=choiceOrder[j];
-                    choiceOrder[j]=temp;
-                }
+       function quizGenerator()
+       {
+			document.getElementById("time").innerHTML=`<p> Qiuz Started on  ${startTime}.</p>`;
+		   //Calculate Elapsed Time
+		   const currentTime=new Date();
+           let elapsedSeconds=(currentTime-quizTime1)/1000;
+           let remSeconds=quizTime*60-elapsedSeconds;
+           document.getElementById("remaining_time").innerHTML=`<p> Remaining Time =  ${Math.floor(remSeconds/60)} min ${Math.floor(remSeconds%60)} sec </p>`;
+			console.log(remSeconds);
+			if (remSeconds>0)
+			{           
+                document.getElementById("feedback").innerHTML=``;
+                
+                //create random choice order
+                let choiceOrder=[1,2,3,4,5];
+                        let max=questions[counter].choices.length-1;
+                        min=0;
+                        for (i=max;i>0;i--){            
+                            const j=Math.floor(Math.random() * (i + 1));
+                            const temp=choiceOrder[i];
+                            choiceOrder[i]=choiceOrder[j];
+                            choiceOrder[j]=temp;
+                        }
+                
+                    for (let i=0;i<totalQuestions;i++){
 
-            for (let i=0;i<totalQuestions;i++){
-		//write the progress
-                document.getElementById("progress").innerHTML=`<p> ${questionNumber}/ ${totalQuestions} </p>`;
-                //write the quesiton
-		document.getElementById("quizcontainer").innerHTML=`<p>Q. Chose the V3 (past participle) form of the given verb. </p><p> &nbsp; &nbsp; &nbsp;${questions[counter].question}</p>`;
+                        //write the progress
+                        document.getElementById("progress").innerHTML=`<p> ${questionNumber}/ ${totalQuestions} </p>`;
 
-                //Write Answer choices
-                //use .replace(/\s/g, '') to scrape all the white spaces inside the choice statements
-                for (let j=0; j<questions[counter].choices.length;j++){
-                    document.getElementById("quizcontainer").innerHTML+=` <input type="radio" id=${j} name= "my choice" value=${questions[counter].choices[choiceOrder[j]-1].trim().replace(/\s/g, '')}> ${questions[counter].choices[choiceOrder[j]-1].trim()} <br>`;
-                }
 
-                document.getElementById("quizcontainer").innerHTML+="<p><button onclick=\"answerChecker()\"> Submit</button></p>";  
+                        //write the quesiton
+                        document.getElementById("quizcontainer").innerHTML=`<p>Q. Chose the V3 (past participle) form of the given verb. </p><p> &nbsp; &nbsp; &nbsp;${questions[counter].question}</p>`;
 
-            }
+                        //Write Answer choices
+                        //use .replace(/\s/g, '') to scrape all the white spaces inside the choice statements
+                        for (let j=0; j<questions[counter].choices.length;j++){
+                            document.getElementById("quizcontainer").innerHTML+=` <input type="radio" id=${j} name= "my choice" value=${questions[counter].choices[choiceOrder[j]-1].trim().replace(/\s/g, '')}> ${questions[counter].choices[choiceOrder[j]-1].trim()} <br>`;
+                        }
+
+                        document.getElementById("quizcontainer").innerHTML+="<p><button onclick=\"answerChecker()\"> Submit</button></p>";  
+
+                    }
+			}
+			else
+            {
+			    document.getElementById("remaining_time").innerHTML=``;
+                document.getElementById("quizcontainer").innerHTML=`<p>The quiz time is over. Below is a summary of your result: <br>Number of correct answers = ${score} <br>Number of incorrect answers = ${totalQuestions-score}</p> <p> Refresh the browser if you want to take the quiz again.`;
+			
+			}
         }
     
-    //answer Checker function
-    function answerChecker(){
-        let message="You did not select any answer.";
-        for (let i=0;i<questions[counter].choices.length;i++){
-            if(document.getElementById(i).checked) 
-                {   
-                    let selectedValue = document.getElementById(i).value.replace(/\s/g, ''); 
-                    console.log(selectedValue.replace(/\s/g, '')); 
-                    console.log(questions[counter].answer.replace(/\s/g, '')); 
-                    if (selectedValue==questions[counter].answer.replace(/\s/g, ''))
-                        {
-                            score=score+1;
-                            console.log(questionNumber);
-                            message=`<p style="font-color:green;">Great! Your answer was correct. The v3(past participle) form of the verb ${questions[counter].question} is ${questions[counter].answer}.</p>`;  
+        //answer Checker function
+        function answerChecker(){
+            let message="You did not select any answer.";
+            for (let i=0;i<questions[counter].choices.length;i++){
+                if(document.getElementById(i).checked) 
+                    {   
+                        let selectedValue = document.getElementById(i).value.replace(/\s/g, ''); 
+                        console.log(selectedValue.replace(/\s/g, '')); 
+                        console.log(questions[counter].answer.replace(/\s/g, '')); 
+                        if (selectedValue==questions[counter].answer.replace(/\s/g, ''))
+                            {
+                                score=score+1;
+                                console.log(questionNumber);
+                                message=`<p style="font-color:green;">Great! Your answer was correct. ${questions[counter].question} means ${questions[counter].answer}.</p>`;  
+                            }
+                        else{
+                            message=`<p>Oops! Your answer was not correct. ${questions[counter].question} means ${questions[counter].answer}.</p>`;  
                         }
-                    else{
-                        message=`<p>Oops! Your answer was not correct. The v3(past participle) form of the verb ${questions[counter].question} is ${questions[counter].answer}.</p>`;  
                     }
+                    else{
+                        //message="You did not choose any answer.";
+                    }
+            }
+            document.getElementById("feedback").innerHTML=message;  
+            
+            document.getElementById("score").innerHTML=`<p> Quiz Grade: ${100*score/totalQuestions} %</p>`;
+            if(questionNumber<totalQuestions)
+            {
+                document.getElementById("quizcontainer").innerHTML=`<p><button onclick="quizGenerator()"> Next Question</p>`;  
+                //update the question counter
+                counter=counter+1;          
+            }
+            else
+            {
+                const quizTime2=new Date();
+                //Calculate the time spanned in minutes
+                let quizSpanTime=Math.ceil((quizTime2-quizTime1)/(1000*60));
+                if(score>0.7*totalQuestions)
+                {
+                    document.getElementById("remaining_time").innerHTML=``;
+                    document.getElementById("quizcontainer").innerHTML=`<p>Congratulations! You passed this quiz. Below is a summary of your result: <br>Number of correct answers = ${score} <br>Number of incorrect answers = ${totalQuestions-score}</p> <p> You took ${quizSpanTime} minutes to complete this quiz. Refresh the browser if you want to take the quiz again.`;
                 }
                 else{
-                    //message="You did not choose any answer.";
+                    document.getElementById("remaining_time").innerHTML=``;
+                    document.getElementById("quizcontainer").innerHTML=`<p>You completed the quiz. Please study more and retake the quiz. Below is the summary of your result: <br>Number of correct answers = ${score} <br>Number of incorrect answers = ${totalQuestions-score}</p> <p> You took ${quizSpanTime} minutes to complete this quiz. Refresh the browser to retake the quiz.`;
                 }
-        }
-        document.getElementById("feedback").innerHTML=message;  
-        
-        document.getElementById("score").innerHTML=`<p> Quiz Score: ${score} </p>`;
-        if(questionNumber<totalQuestions){
-            document.getElementById("quizcontainer").innerHTML=`<p><button onclick="quizGenerator()"> Next Question</p>`;  
-            //update the question counter
-            counter=counter+1;          
-        }
-        else{
-            if(score>0.7*totalQuestions){
-                document.getElementById("quizcontainer").innerHTML=`<p>Congratulations! You passed this quiz. Below is the summary of your result: <br>Number of correct answers = ${score} <br>Number of incorrect answers = ${totalQuestions-score}</p> <p> Refresh the browser if you want to take the quiz again.`;
+                
+                
+                
+                //reset the question counter=0
+                counter=0;
+                score=0;
             }
-            else{
-                document.getElementById("quizcontainer").innerHTML=`<p>You completed the quiz. Please study more and retake the quiz. Below is the summary of your result: <br>Number of correct answers = ${score} <br>Number of incorrect answers = ${totalQuestions-score}</p> <p> Refresh the browser to reake the quiz.`;
-            }
-            
-            
-            
-            //reset the question counter=0
-            counter=0;
-            score=0;
+            //randomize the question counter
+            counter=Math.floor(Math.random()*(100-1)+1);
+            console.log(counter);
+            questionNumber+=1;
         }
-        //randomize the question counter
-        counter=Math.floor(Math.random()*(100-1)+1);
-        console.log(counter);
-        questionNumber+=1;
-    }
 
    </script>
 </body>
+</html>
