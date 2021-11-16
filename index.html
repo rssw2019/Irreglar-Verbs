@@ -17,6 +17,9 @@
     <div id="time">
         <h2> </h2>
     </div>
+	 <div id="progress" style="text-align:left;">
+
+    </div>
     <div id="score" style="text-align:right;">
 
     </div>
@@ -69,7 +72,8 @@
         
        //Quiz generator function
        function quizGenerator(){
-           document.getElementById("score").innerHTML=``;
+           //document.getElementById("score").innerHTML=``;
+	    document.getElementById("feedback").innerHTML=``;
 	       
 	   //create random choice order
            let choiceOrder=[1,2,3,4,5];
@@ -83,6 +87,8 @@
                 }
 
             for (let i=0;i<totalQuestions;i++){
+		//write the progress
+                document.getElementById("progress").innerHTML=`<p> ${questionNumber}/ ${totalQuestions} </p>`;
 
                 //write the quesiton
 				document.getElementById("quizcontainer").innerHTML=`<p> ${questionNumber})  Chose the v3 (past participle) form of the given verb.</p>`;
