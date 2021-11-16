@@ -91,9 +91,8 @@
             for (let i=0;i<totalQuestions;i++){
 		//write the progress
                 document.getElementById("progress").innerHTML=`<p> ${questionNumber}/ ${totalQuestions} </p>`;
-
                 //write the quesiton
-		document.getElementById("quizcontainer").innerHTML=<p>Q. Chose the V3 (past participle) form of the given verb. </p><p> &nbsp; &nbsp; &nbsp;${questions[counter].question}</p>`;
+		document.getElementById("quizcontainer").innerHTML=`<p>Q. Chose the V3 (past participle) form of the given verb. </p><p> &nbsp; &nbsp; &nbsp;${questions[counter].question}</p>`;
 
                 //Write Answer choices
                 //use .replace(/\s/g, '') to scrape all the white spaces inside the choice statements
