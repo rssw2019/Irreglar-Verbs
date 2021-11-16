@@ -86,7 +86,7 @@
 
                 //write the quesiton
 				document.getElementById("quizcontainer").innerHTML=`<p> ${questionNumber})  Chose the v3 (past participle) form of the given verb.</p>`;
-                document.getElementById("quizcontainer").innerHTML+=`<p> ${questions[counter].question} </p>`;
+                document.getElementById("quizcontainer").innerHTML+=`<p> ${questions[counter].question}</p>`;
 
                 //Write Answer choices
                 //use .replace(/\s/g, '') to scrape all the white spaces inside the choice statements
@@ -112,10 +112,10 @@
                         {
                             score=score+1;
                             console.log(questionNumber);
-                            message=`<p style="font-color:green;">Great! Your answer was correct. The v3(past participle) form of the verb ${questions[counter].question} is ${questions[counter].answer}</p>`;  
+                            message=`<p style="font-color:green;">Great! Your answer was correct. The v3(past participle) form of the verb ${questions[counter].question} is ${questions[counter].answer}.</p>`;  
                         }
                     else{
-                        message=`<p>Oops! Your answer was not correct. The v3(past participle) form of the verb ${questions[counter].question} is ${questions[counter].answer}</p>`;  
+                        message=`<p>Oops! Your answer was not correct. The v3(past participle) form of the verb ${questions[counter].question} is ${questions[counter].answer}.</p>`;  
                     }
                 }
                 else{
